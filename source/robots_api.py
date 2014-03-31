@@ -44,6 +44,7 @@ class KnightFightFactory:
 
             while True:
                 self.do_login(self.user, self.password)
+                self.session.get(self.BASE_URL + '?ac=job&filter=4')
 
                 params = self.params.copy()
                 req1 = self.session.get(self.BASE_URL + '?ac=raubzug')
@@ -66,9 +67,6 @@ class KnightFightFactory:
 
         def go_to_work(self):
             req1 = self.session.get(self.BASE_URL + '?ac=job&filter=4')
-            import codecs
-            with codecs.open('/tmp/job.html', 'w', 'utf-8') as f:
-                f.write(req1.text)
             job_url = re.search(
                 r'\?ac=job&amp;sac=startjob&amp;qid=\d+', req1.text).group().\
                 replace('amp;', '')
